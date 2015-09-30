@@ -1,0 +1,119 @@
+.navbar-header {
+  background-color: @brand-primary;
+  height: 100/@rem;
+  position: relative;
+}
+
+.navbar-brand {
+  line-height: 100/@rem;
+  font-size: 34/@rem;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+  padding-left: 34/@rem;
+  padding-right: 34/@rem;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.navbar-back {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  padding-left: 28/@rem;
+  padding-right: 28/@rem;
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  .icon-navbar-back {
+    display: inline-block;
+    line-height: 100/@rem;
+    font-size: 36/@rem;
+  }
+}
+
+.navbar-title {
+  color: white;
+  font-size: 32/@rem;
+  line-height: 100/@rem;
+  text-align: center;
+  position: absolute;
+  left: 92/@rem;
+  top: 0;
+  right: 110/@rem;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.navbar-toggle {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 34/@rem;
+  -webkit-user-select: none;
+  user-select: none;
+
+  .icon-bar {
+    background: rgba(255, 255, 255, 0.8);
+    display: block;
+    width: 42/@rem;
+    height: 6/@rem;
+    border-radius: 2/@rem;
+  }
+
+  .icon-bar + .icon-bar {
+    margin-top: 7/@rem;
+  }
+}
+
+.navbar-collapsed {
+  background-color: white;
+  padding-bottom: 35/@rem;
+
+  .icon-bar {
+    background-color: rgba(49, 189, 128, 0.8);
+  }
+}
+
+.navbar-collapse {
+  background-color: rgba(0, 0, 0, 0.4);
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 100/@rem;
+  right: 0;
+  z-index: 2147483647;
+  overflow: hidden;
+}
+
+.navbar-nav {
+  background-color: white;
+  font-weight: bold;
+  margin: -0.125/@rem 0 0;
+  padding: 0;
+
+  li {
+    border-bottom: 1px solid #e9e9e9;
+  }
+
+  a {
+    color: #333;
+    display: block;
+    font-size: 32/@rem;
+    line-height: 120/@rem;
+    padding-left: 34/@rem;
+    margin-right: 110/@rem;
+    text-decoration: none;
+  }
+}
+
+.navbar-mask {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+}

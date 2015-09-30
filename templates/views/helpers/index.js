@@ -18,7 +18,7 @@ var cloudinaryUrlLimit = _.template(CLOUDINARY_HOST + '/<%= cloudinaryUser %>/im
 module.exports = function() {
 	
 	var _helpers = {};
-	
+
 	/**
 	 * Generic HBS Helpers
 	 * ===================
@@ -33,7 +33,7 @@ module.exports = function() {
 			return options.inverse(this);
 		}
 	};
-	
+
 	/**
 	 * Port of Ghost helpers to support cross-theming
 	 * ==============================================
@@ -92,7 +92,7 @@ module.exports = function() {
 	// Returns an html-string of the categories on the post.
 	// By default, categories are separated by commas.
 	// input. categories:['tech', 'js']
-	// output. 'Filed Undder <a href="blog/tech">tech</a>, <a href="blog/js">js</a>'
+	// output. 'Filed Undder <a href="category/tech">tech</a>, <a href="category/js">js</a>'
 	
 	_helpers.categoryList = function(categories, options) {
 		var autolink = _.isString(options.hash.autolink) && options.hash.autolink === "false" ? false : true,
@@ -107,7 +107,7 @@ module.exports = function() {
 			if (autolink) {
 				return _.map(tags, function(tag) {
 					return linkTemplate({
-						url: ('/blog/' + tag.key),
+						url: ('/category/' + tag.key),
 						text: _.escape(tag.name)
 					});
 				}).join(separator);
@@ -216,7 +216,7 @@ module.exports = function() {
 	
 	// Direct url link to a specific post
 	_helpers.postUrl = function(postSlug, options) {
-		return ('/blog/post/' + postSlug);
+		return ('/post/' + postSlug);
 	};
 	
 	// might be a ghost helper
@@ -227,7 +227,7 @@ module.exports = function() {
 	
 	// create the category url for a blog-category page
 	_helpers.categoryUrl = function(categorySlug, options) {
-		return ('/blog/' + categorySlug);
+		return ('/category/' + categorySlug);
 	};
 	
 	// ### Pagination Helpers

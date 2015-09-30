@@ -1,0 +1,26 @@
+<div class="navbar" id="navbar">
+    <div class="navbar-header">
+        {{#ifeq section 'home'}}
+        <a class="navbar-brand" href="/">有个地</a>
+        {{/ifeq}}
+        {{#ifeq section 'post'}}
+        <a class="navbar-back" href="/">
+            <span class="iconfont icon-navbar-back"></span>
+        </a>
+        <div class="navbar-title">已结束│爱意久久礼盒（进口食品组合）只需99元，宁波大市包邮</div>
+        {{/ifeq}}
+        <div class="navbar-toggle" id="navbar-toggle">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </div>
+    </div>
+    <div class="navbar-collapse" id="navbar-collapse">
+        <ul class="navbar-nav">
+            <li><a href="#">栏目</a></li>
+            <li><a href="#">活动</a></li>
+            <li><a href="#">关于</a></li>
+        </ul>
+        <div class="navbar-mask" id="navbar-mask"></div>
+    </div>
+</div>
