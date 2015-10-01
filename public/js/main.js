@@ -55,14 +55,9 @@
             }
         }
     });
+
     var lis = [];
     var num = swipe.getNumSlides();
-
-    // 强制设置3：2的宽高模式 多出来的隐藏
-    var winWidth = $(window).width();
-    winWidth = winWidth > 660 ? 660 : winWidth;
-    var height = 2 * winWidth / 3;
-    carousel.css({height: height + 'px'});
 
     for (var i = 0; num > 1 && i < num; i++) {
         lis.push('<li' + (i === 0 ? ' class="active"' : '') + '>' + i + '</li>');

@@ -1,3 +1,8 @@
 <div class="post-content">
-    {{{data.post.content}}}
+    {{^isArticle}}
+        <div class="heading">活动详情</div>
+    {{/isArticle}}
+    <div class="body">
+        {{{data.post.content}}}
+    </div>
 </div>
