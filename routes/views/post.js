@@ -23,6 +23,13 @@ exports = module.exports = function(req, res) {
 		}).populate('author categories');
 		
 		q.exec(function(err, result) {
+
+			var type = result.type;
+
+			locals.title = result.title + ' | 有个地';
+			locals.isArticle = type === 'article';
+			locals.isProduct = type === 'product';
+			locals.isRegistration = type === 'registration';
 			locals.data.post = result;
 			next(err);
 		});
