@@ -1,12 +1,14 @@
 .post-carousel {
-  width: 640/@rem;
   height: 427/@rem;
   overflow: hidden;
   position: relative;
 
   .carousel-inner {
-    overflow: hidden;
-    position: relative;
+
+    .item {
+      float: left;
+      position: relative;
+    }
 
     img {
       width: 640/@rem;
@@ -18,7 +20,7 @@
   .carousel-desc {
     background-image: -webkit-gradient(linear, 0 0, 0 100%, from(transparent), to(rgba(0, 0, 0, .5)));
     color: white;
-    font-size: 34/@rem;
+    font-size: 30/@rem;
     line-height: 1.5em;
     padding: 86/@rem 22/@rem 18/@rem;
     position: absolute;
@@ -28,26 +30,26 @@
   }
 
   .carousel-indicators {
+    margin-bottom: 6/@rem;
+    text-align: center;
+    width: 100%;
     position: absolute;
     left: 0;
     bottom: 0;
-    font-size: 0;
-    margin-bottom: 3px;
-    text-align: center;
-    width: 100%;
 
-    li {
+    .item {
       background: rgba(0, 0, 0, 0.4);
-      border-radius: 100%;
+      border-radius: 3/@rem;
       display: inline-block;
-      width: 6px;
-      height: 6px;
-      margin: 3px;
+      font-size: 0;
+      width: 6/@rem;
+      height: 6/@rem;
+      margin: 3/@rem;
       line-height: 0;
     }
 
     .active {
-      background: rgba(255, 255, 255, 0.9);
+      background: rgba(255, 255, 255, 0.8);
     }
   }
 

@@ -41,29 +41,31 @@
 
     var swipe = new Swipe(carousel.get(0), {
         auto: 5000,
+        continuous: false,
         callback: function (idx) {
 
-            var cur = $('li:nth-child(' + ++idx + ')', carousel);
-            var curImg = $('img', cur);
+            var curItem = $('li:nth-child(' + ++idx + ')', carousel);
+            var curImg = $('img', curItem);
 
-            cur.addClass('active')
-                .siblings().removeClass('active');
+            curItem.addClass('active')
+                .siblings()
+                .removeClass('active');
 
             if (curImg.attr('data-src')) {
-                curImg.attr('src', curImg.attr('data-src'))
-                    .removeAttr('data-src');
+                curImg.attr('src', curImg.attr('data-src'));
             }
         }
     });
 
-    var lis = [];
+    var i = 0;
     var num = swipe.getNumSlides();
+    var items = [];
 
-    for (var i = 0; num > 1 && i < num; i++) {
-        lis.push('<li' + (i === 0 ? ' class="active"' : '') + '>' + i + '</li>');
+    for (; num > 1 && i < num; i++) {
+        items.push('<li class="item' + (i === 0 ? ' active' : '') + '">' + i + '</li>');
     }
     carousel.append('<ul class="carousel-indicators">' +
-        lis.join('') +
+        items.join('') +
         '</ul>');
 
-})(Zepto, '#post-carousel');
+})(Zepto, '#carousel');
