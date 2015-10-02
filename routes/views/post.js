@@ -10,9 +10,6 @@ exports = module.exports = function(req, res) {
 	locals.filters = {
 		post: req.params.post
 	};
-	locals.data = {
-		posts: []
-	};
 	
 	// Load the current post
 	view.on('init', function(next) {
@@ -30,7 +27,7 @@ exports = module.exports = function(req, res) {
 			locals.isArticle = type === 'article';
 			locals.isProduct = type === 'product';
 			locals.isRegistration = type === 'registration';
-			locals.data.post = result;
+			locals.post = result;
 			next(err);
 		});
 		

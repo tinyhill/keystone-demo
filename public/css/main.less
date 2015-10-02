@@ -1,13 +1,35 @@
+article, aside, blockquote, body, button, code, dd, details, div, dl, dt, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, hr, input, legend, li, menu, nav, ol, p, pre, section, td, textarea, th, ul {
+  margin: 0;
+  padding: 0;
+}
+
+ol, ul, li {
+  list-style: none;
+}
+
+.clearfix:after,
+.clearfix:before {
+  content: '\20';
+  display: table;
+}
+
+.clearfix:after {
+  clear: both;
+}
+
 @import 'http://at.alicdn.com/t/font_1443702603_2148554.css';
 
 .iconfont {
   font-size: inherit;
 }
 
-@import 'base';
+@import 'variables';
+@import 'base_buttons';
+@import 'base_forms';
 @import 'navbar';
 @import 'post_carousel';
 @import 'post_content';
 @import 'post_product';
 @import 'post_registration';
 @import 'post_utility';
+@import 'registration';

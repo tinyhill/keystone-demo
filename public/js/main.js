@@ -7,7 +7,7 @@
     var nav = $('#navbar-collapse');
     var mask = $('#navbar-mask');
 
-    if (!toggle) {
+    if (!toggle.get(0)) {
         return;
     }
 
@@ -35,7 +35,7 @@
 
     var carousel = $(selector);
 
-    if (!carousel) {
+    if (!carousel.get(0)) {
         return;
     }
 

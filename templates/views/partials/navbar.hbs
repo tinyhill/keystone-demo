@@ -3,8 +3,8 @@
         {{#ifeq section 'home'}}
         <a class="navbar-brand" href="/">有个地</a>
         {{/ifeq}}
-        {{#ifeq section 'post'}}
-        <a class="navbar-back" href="/">
+        {{^ifeq section 'home'}}
+        <a class="navbar-back" href="/post/560a4df2140553b42e3be418">
             <span class="iconfont icon-back"></span>
         </a>
         <div class="navbar-title">已结束│爱意久久礼盒（进口食品组合）只需99元，宁波大市包邮</div>
