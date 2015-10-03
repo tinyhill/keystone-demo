@@ -8,7 +8,7 @@ exports = module.exports = function (req, res) {
     // Set locals
     locals.section = 'registration';
     locals.filters = {
-        post: req.query.post
+        post: req.params.post
     };
 
     // Load the current post

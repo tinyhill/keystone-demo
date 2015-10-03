@@ -1,19 +1,6 @@
 {{> header }}
 <div id="content">
-    <div class="registration-form">
-        <div class="form-title">已结束│爱意久久礼盒（进口食品组合）只需99元，宁波大市包邮</div>
-        <form class="form form-stacked">
-            <fieldset class="group">
-                <label>报名信息</label>
-                <input type="text" class="input-1" placeholder="请输入手机号码">
-                <input type="text" class="input-1" placeholder="请输入真实姓名">
-            </fieldset>
-            <fieldset class="group">
-                <label>留言</label>
-                <textarea class="input-1" placeholder="写下您对本次活动的期许，能提高中奖概率哦！"></textarea>
-            </fieldset>
-            <button type="submit" class="button input-1 button-primary">提交报名</button>
-        </form>
-    </div>
+    {{> registration_form }}
+    {{> registration_success }}
 </div>
 {{> footer }}

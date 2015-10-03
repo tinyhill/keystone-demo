@@ -40,14 +40,14 @@
     }
 
     var swipe = new Swipe(carousel.get(0), {
-        auto: 5000,
-        continuous: false,
+        auto: 3000,
+        disableScroll: true,
         callback: function (idx) {
 
-            var curItem = $('li:nth-child(' + ++idx + ')', carousel);
-            var curImg = $('img', curItem);
+            var curItems = $('li:nth-child(' + ++idx + ')', carousel);
+            var curImg = $('img', curItems);
 
-            curItem.addClass('active')
+            curItems.addClass('active')
                 .siblings()
                 .removeClass('active');
 
@@ -58,10 +58,10 @@
     });
 
     var i = 0;
-    var num = swipe.getNumSlides();
+    var totalSlides = swipe.getNumSlides();
     var items = [];
 
-    for (; num > 1 && i < num; i++) {
+    for (; totalSlides > 1 && i < totalSlides; i++) {
         items.push('<li class="item' + (i === 0 ? ' active' : '') + '">' + i + '</li>');
     }
     carousel.append('<ul class="carousel-indicators">' +
