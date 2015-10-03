@@ -15,7 +15,7 @@ exports = module.exports = function (req, res) {
     view.on('init', function (next) {
 
         var q = keystone.list('Post').model.findOne({
-            slug: locals.filters.post
+            _id: locals.filters.post
         }).populate('author categories');
 
         q.exec(function (err, result) {
@@ -23,9 +23,10 @@ exports = module.exports = function (req, res) {
             var type = result.type;
 
             locals.title = result.title;
-            locals.isArticle = type === 'article';
-            locals.isProduct = type === 'product';
-            locals.isRegistration = type === 'registration';
+            locals.isArticle = type == 'article';
+            locals.isProduct = type == 'product';
+            locals.isRegistration = type == 'registration';
+            locals.isPublished = result.state == 'published';
             locals.post = result;
             next(err);
         });

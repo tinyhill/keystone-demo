@@ -1,6 +1,10 @@
 {{> header }}
 <div id="content">
-    {{> registration_form }}
-    {{> registration_success }}
+    {{^isSubmit}}
+        {{> registration_form }}
+    {{/isSubmit}}
+    {{#isSubmit}}
+        {{> registration_success }}
+    {{/isSubmit}}
 </div>
 {{> footer }}

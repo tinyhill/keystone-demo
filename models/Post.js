@@ -25,7 +25,8 @@ Post.add({
 	location: { type: String, dependsOn: { type: ['product', 'registration'] } },
 	contact: { type: String, dependsOn: { type: ['product', 'registration'] } },
 	cost: { type: Number, dependsOn: { type: ['product'] } },
-	limit: { type: Number, dependsOn: { type: ['registration'] } }
+	limit: { type: Number, dependsOn: { type: ['registration'] } },
+	deadline: { type: String, dependsOn: { type: ['registration'] } }
 	// products: { type: Types.Relationship, ref: 'Product', many: true, dependsOn: { type: ['product'] } }
 });
 

@@ -40,7 +40,7 @@
     }
 
     var swipe = new Swipe(carousel.get(0), {
-        auto: 3000,
+        auto: 5000,
         disableScroll: true,
         callback: function (idx) {
 

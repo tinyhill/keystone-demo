@@ -1,6 +1,7 @@
 <div class="registration-form">
-    <div class="form-title">已结束│爱意久久礼盒（进口食品组合）只需99元，宁波大市包邮</div>
-    <form class="form form-stacked">
+    <div class="form-title">{{post.title}}</div>
+    <form method="post" class="form form-stacked">
+        <input type="hidden" name="post" value="{{filters.post}}">
         <fieldset class="group">
             <label>报名信息</label>
             <input type="text" name="mobile" class="input-1" placeholder="请输入手机号码">
