@@ -12,7 +12,7 @@
 
   fieldset {
 
-    &:first-child {
+    &:first-of-type {
       padding: 0;
     }
 
@@ -30,5 +30,11 @@
   .button {
     font-size: 30/@rem;
     margin-bottom: 22/@rem;
+  }
+
+  .unhappyMessage {
+    color: #a94442;
+    display: block;
+    padding: 20/@rem 0;
   }
 }

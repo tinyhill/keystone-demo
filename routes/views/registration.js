@@ -10,47 +10,45 @@ exports = module.exports = function (req, res) {
     locals.filters = {
         post: req.params.post
     };
-    locals.isSubmit = req.method == 'POST';
+    locals.isSubmit = req.method.toLowerCase() == 'post';
 
     // Load the current post
     view.on('init', function (next) {
 
-        if (locals.isSubmit) {
+        var postQ = keystone.list('Post').model.findOne({
+            _id: locals.filters.post
+        }).populate('author');
 
-            var q = keystone.list('Registration').model.findOne({
-                author: locals.user._id
-            });
+        postQ.exec(function (err, result) {
 
-            q.exec(function (err, result) {
+            locals.title = result.title;
+            locals.post = result;
 
-                if (!result) {
+            if (locals.isSubmit) {
 
-                    var Registration = keystone.list('Registration');
-                    var newRegistration = new Registration.model(req.body);
+                var Registration = keystone.list('Registration');
+                var registrationQ = Registration.model.findOne({
+                    author: locals.user._id
+                });
 
-                    newRegistration.author = locals.user._id;
-                    newRegistration.save(function (err, result) {
-                        locals.title = result.title;
-                    });
-                } else {
-                    locals.title = result.title;
-                }
+                registrationQ.exec(function (err, result) {
+
+                    if (!result) {
+
+                        var obj = new Registration.model(req.body);
+
+                        obj.author = locals.user._id;
+                        obj.save();
+                    } else {
+                        locals.isSubmited = true;
+                    }
+                    next(err);
+                });
+            } else {
                 next(err);
+            }
+        });
 
-            });
-
-        } else {
-
-            var q = keystone.list('Post').model.findOne({
-                _id: locals.filters.post
-            }).populate('author');
-
-            q.exec(function (err, result) {
-                locals.title = result.title;
-                locals.post = result;
-                next(err);
-            });
-        }
     });
 
     // Render the view

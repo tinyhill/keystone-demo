@@ -9,12 +9,11 @@
             <b>报名截止</b>
             <i>{{post.deadline}}</i>
         </div>
-        {{#isPublished}}
+        {{#if isPublished}}
             <a href="/post-registration/{{post.slug}}" class="button join">我要报名</a>
-        {{/isPublished}}
-        {{^isPublished}}
+        {{else}}
             <button type="button" class="button button-disabled">已结束</button>
-        {{/isPublished}}
+        {{/if}}
     </div>
     <div class="registration-info">
         <div class="heading">报名100人，已入选10人</div>

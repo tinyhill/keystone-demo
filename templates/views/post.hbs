@@ -1,19 +1,14 @@
-{{> header }}
-<div id="content">
-    {{#isArticle}}
-        {{> post_header }}
-    {{/isArticle}}
-    {{^isArticle}}
-        {{> post_carousel }}
-        {{#isProduct}}
-            {{> post_product }}
-        {{/isProduct}}
-        {{#isRegistration}}
-            {{> post_registration }}
-        {{/isRegistration}}
-        {{> post_utility }}
-    {{/isArticle}}
-    {{> post_content }}
-    {{> post_tab }}
-</div>
-{{> footer }}
+{{#if isArticle}}
+    {{> post_header }}
+{{else}}
+    {{> post_carousel }}
+    {{#isProduct}}
+        {{> post_product }}
+    {{/isProduct}}
+    {{#isRegistration}}
+        {{> post_registration }}
+    {{/isRegistration}}
+    {{> post_utility }}
+{{/if}}
+{{> post_content }}
+{{> post_tab }}

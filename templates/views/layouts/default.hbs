@@ -13,8 +13,13 @@
 </head>
 <body>
 <div id="page">
-    {{{body}}}
+    {{> header }}
+    <div id="content">
+        {{{body}}}
+    </div>
+    {{> footer }}
 </div>
 {{> js }}
+{{{block 'js'}}}
 </body>
 </html>

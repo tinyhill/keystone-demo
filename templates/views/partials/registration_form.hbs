@@ -1,16 +1,40 @@
 <div class="registration-form">
     <div class="form-title">{{post.title}}</div>
-    <form method="post" class="form form-stacked">
+    <form method="post" class="form form-stacked" id="form">
         <input type="hidden" name="post" value="{{filters.post}}">
         <fieldset class="group">
             <label>报名信息</label>
-            <input type="text" name="mobile" class="input-1" placeholder="请输入手机号码">
-            <input type="text" name="realName" class="input-1" placeholder="请输入真实姓名">
+            <input type="text" name="mobile" id="mobile" class="input-1" placeholder="请输入手机号码">
+            <input type="text" name="realName" id="realName" class="input-1" placeholder="请输入真实姓名" maxlength="10">
         </fieldset>
         <fieldset class="group">
             <label>留言</label>
-            <textarea name="content" class="input-1" placeholder="写下您对本次活动的期许，能提高中奖概率哦！"></textarea>
+            <textarea name="content" id="content" class="input-1" placeholder="写下您对本次活动的期许，能提高中奖概率哦！" maxlength="100"></textarea>
         </fieldset>
         <button type="submit" class="button input-1 button-primary">提交报名</button>
     </form>
 </div>
+{{#contentFor 'js'}}
+    <script>
+        (function ($) {
+            $('#form').isHappy({
+                fields: {
+                    '#mobile': {
+                        required: true,
+                        message: '手机号码格式不正确',
+                        test: function (val) {
+                            return /^\s*1\d{10}\s*$/.test(val);
+                        }
+                    },
+                    '#realName': {
+                        required: true,
+                        message: '真实姓名长度不能超过 10 个字符',
+                        test: function (val) {
+                            return val.length <= 10;
+                        }
+                    }
+                }
+            });
+        })(Zepto);
+    </script>
+{{/contentFor}}
