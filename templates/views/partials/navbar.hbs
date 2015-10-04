@@ -1,13 +1,14 @@
 <div class="navbar" id="navbar">
     <div class="navbar-header">
         {{#ifeq section 'home'}}
-        <a class="navbar-brand" href="/">有个地</a>
+            <a class="navbar-brand" href="/">有个地</a>
         {{/ifeq}}
         {{^ifeq section 'home'}}
-        <a class="navbar-back" href="/post/560a4df2140553b42e3be418">
-            <span class="iconfont icon-back"></span>
-        </a>
-        <div class="navbar-title">{{title}}</div>
+            <a class="navbar-back" href="/post/560a4df2140553b42e3be418">
+                <span class="iconfont icon-back"></span>
+            </a>
+
+            <div class="navbar-title">{{title}}</div>
         {{/ifeq}}
         <div class="navbar-toggle" id="navbar-toggle">
             <span class="icon-bar"></span>
@@ -17,9 +18,10 @@
     </div>
     <div class="navbar-collapse" id="navbar-collapse">
         <ul class="navbar-nav">
-            <li class="item"><a href="#">栏目</a></li>
-            <li class="item"><a href="#">活动</a></li>
-            <li class="item"><a href="#">关于</a></li>
+            {{#navLinks}}
+                <li class="item"><a href="{{href}}">{{text}}</a></li>
+            {{/navLinks}}
+            <li class="item"><a href="/user">我</a></li>
         </ul>
         <div class="navbar-mask" id="navbar-mask"></div>
     </div>

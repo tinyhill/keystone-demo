@@ -10,7 +10,7 @@
             <i>{{post.deadline}}</i>
         </div>
         {{#if isPublished}}
-            <a href="/post-registration/{{post.slug}}" class="button join">我要报名</a>
+            <a href="/registration/new/{{post.slug}}" class="button join">我要报名</a>
         {{else}}
             <button type="button" class="button button-disabled">已结束</button>
         {{/if}}
@@ -18,7 +18,7 @@
     <div class="registration-info">
         <div class="heading">报名100人，已入选10人</div>
         <div class="users">
-            <a class="clearfix" href="#">
+            <a class="clearfix" href="/registration/users/{{post.slug}}">
                 <img src="http://tp3.sinaimg.cn/1639111910/180/5719548796/1" alt="">
                 <img src="http://tp3.sinaimg.cn/1639111910/180/5719548796/1" alt="">
                 <img src="http://tp3.sinaimg.cn/1639111910/180/5719548796/1" alt="">

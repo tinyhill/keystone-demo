@@ -16,7 +16,8 @@ Registration.add({
     date: { type: Types.Date, default: Date.now, index: true },
     realName: { type: String },
     mobile: { type: String },
-    content: { type: String }
+    content: { type: String },
+    selected: { type: Boolean, index: true }
 });
 
 Registration.defaultColumns = 'post, author, date|20%';

@@ -16,7 +16,7 @@ exports = module.exports = function (req, res) {
 
         var q = keystone.list('Post').model.findOne({
             _id: locals.filters.post
-        }).populate('author categories');
+        });
 
         q.exec(function (err, result) {
 

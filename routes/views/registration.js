@@ -1,16 +1,16 @@
 var keystone = require('keystone');
 
-exports = module.exports = function (req, res) {
+exports.new = function (req, res) {
 
     var view = new keystone.View(req, res);
     var locals = res.locals;
 
     // Set locals
-    locals.section = 'post-registration';
+    locals.section = 'registration/new';
     locals.filters = {
         post: req.params.post
     };
-    locals.isSubmit = req.method.toLowerCase() == 'post';
+    locals.isSubmit = req.method == 'POST';
 
     // Load the current post
     view.on('init', function (next) {
@@ -54,4 +54,41 @@ exports = module.exports = function (req, res) {
     // Render the view
     view.render('registration');
 
+};
+
+exports.info = function (req, res) {
+
+    var view = new keystone.View(req, res);
+    var locals = res.locals;
+
+    // Set locals
+    locals.section = 'registration/info';
+    locals.filters = {
+        post: req.params.post
+    };
+
+    // Load the current registration
+    view.on('init', function (next) {
+
+        var Registration = keystone.list('Registration');
+        var registrationQ = Registration.model.findOne({
+            post: locals.filters.post
+        }).populate('author');
+
+        registrationQ.exec(function (err, result) {
+console.log(result);
+
+            locals.layout = 'ajax';
+            locals.registrations = result;
+            next(err);
+        });
+    });
+
+    // Render the view
+    view.render('registration_info');
+};
+
+exports.users = function (req, res) {
+
+    // todo
 };
