@@ -73,11 +73,66 @@
 /**
  * 图片懒加载
  */
-(function ($) {
+(function ($, selector) {
 
-    $('img[data-src]').lazyload({
-        threshold: 100,
-        data_attribute: 'src'
+    $(selector).lazyload({
+        data_attribute: 'src',
+        vertical_only: true
     });
 
-})(Zepto);
+})(Zepto, 'img[data-src]');
+
+/**
+ * 加载更多
+ */
+(function ($, selector) {
+
+    var more = $(selector);
+
+    if (!more.get(0)) {
+        return;
+    }
+
+    var btn = more.find('button');
+    var context = $(more.attr('data-context'));
+    var tpl = $(more.attr('data-tpl')).html();
+    var isReady = true;
+    var page = 2;
+
+    function moreRequest() {
+
+        var inViewport = (more.offset().top - $('body').scrollTop()) <= $(window).height();
+
+        isReady && inViewport && $.ajax({
+            url: location.search,
+            data: {
+                page: page
+            },
+            context: $(context),
+            beforeSend: function () {
+                btn.text('加载中...');
+                isReady = false;
+            },
+            success: function (html) {
+                if (html) {
+                    btn.text('加载更多');
+                    isReady = true;
+                    this.append(html);
+                    page = page + 1;
+                    moreRequest();
+                } else {
+                    btn.text('没有了');
+                    isReady = false;
+                }
+            },
+            error: function () {
+                btn.text('加载更多');
+                isReady = true;
+            }
+        });
+    }
+
+    $(window).on('scroll', moreRequest);
+    moreRequest();
+
+})(Zepto, '#more');

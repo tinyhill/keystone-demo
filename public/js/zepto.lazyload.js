@@ -1,14 +1,16 @@
 /*!
- * author:jieyou
+ * An jQuery | zepto plugin for lazy loading images.
+ * author -> jieyou
  * see https://github.com/jieyou/lazyload
- * part of the code fork from tuupola's https://github.com/tuupola/jquery_lazyload
+ * use some tuupola's code https://github.com/tuupola/jquery_lazyload (BSD)
+ * use component's throttle https://github.com/component/throttle (MIT)
  */
 ;(function(factory){
     if(typeof define === 'function' && define.amd){ // AMD
         // you may need to change `define([------>'jquery'<------], factory)` 
         // if you use zepto, change it rely name, such as `define(['zepto'], factory)`
-        // if your jquery|zepto lib is in other path, change it such as `define(['lib\jquery.min'], factory)`
         define(['jquery'], factory)
+        // define(['zepto'], factory)
     }else{ // Global
         factory(window.jQuery || window.Zepto)
     }
@@ -28,8 +30,7 @@
             appear                      : emptyFn,
             load                        : emptyFn,
             vertical_only               : false,
-            minimum_interval            : 300,
-            use_minimum_interval_in_ios : false,
+            check_appear_throttle_time  : 300,
             url_rewriter_fn             : emptyFn,
             no_fake_img_loader          : false,
             placeholder_data_img        : 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC',
@@ -37,8 +38,6 @@
             placeholder_real_img        : 'http://ditu.baidu.cn/yyfm/lazyload/0.0.1/img/placeholder.png'
             // todo : 将某些属性用global来配置，而不是每次在$(selector).lazyload({})内配置
         },
-        isIOS = (/(?:iphone|ipod|ipad).*os/gi).test(navigator.appVersion),
-        isIOS5 = isIOS && (/(?:iphone|ipod|ipad).*os 5/gi).test(navigator.appVersion),
         type // function
 
     function emptyFn(){}
@@ -99,9 +98,7 @@
         var counter = 0
         $elements.each(function(i,e){
             var $element = $elements.eq(i)
-            if(options.skip_invisible &&
-            // Support zepto
-             !($element.width() || $element.height()) && $element.css("display") !== "none"){
+            if(($element.width() <= 0 && $element.height() <= 0) || $element.css('display') === 'none'){
                 return
             }
             function appear(){
@@ -142,21 +139,44 @@
         })
     }
 
+    // throttle : https://github.com/component/throttle , MIT License
+    function throttle (func, wait) {
+        var ctx, args, rtn, timeoutID // caching
+        var last = 0
+
+        return function throttled () {
+            ctx = this
+            args = arguments
+            var delta = new Date() - last
+            if (!timeoutID)
+                if (delta >= wait) call()
+                else timeoutID = setTimeout(call, wait - delta)
+            return rtn
+        }
+
+        function call () {
+            timeoutID = 0
+            last = +new Date()
+            rtn = func.apply(ctx, args)
+            ctx = null
+            args = null
+        }
+    }
+
     if(!$.fn.hasOwnProperty('lazyload')){
 
         $.fn.lazyload = function(options){
             var $elements = this,
                 isScrollEvent,
                 isScrollTypeEvent,
-                scrollTimer = null,
-                hasMinimumInterval
+                throttleCheckAppear
 
             if(!$.isPlainObject(options)){
                 options = {}
             }
 
             $.each(defaultOptions,function(k,v){
-                if($.inArray(k,['threshold','failure_limit','minimum_interval']) != -1){ // these params can be a string
+                if($.inArray(k,['threshold','failure_limit','check_appear_throttle_time']) != -1){ // these params can be a string
                     if(type(options[k]) == 'String'){
                         options[k] = parseInt(options[k],10)
                     }else{
@@ -179,8 +199,12 @@
             })
 
             isScrollEvent = options.event == 'scroll'
+            throttleCheckAppear = options.check_appear_throttle_time == 0?
+                checkAppear
+                :throttle(checkAppear,options.check_appear_throttle_time)
 
-            // isScrollTypeEvent. cantains custom scrollEvent . Such as 'scrollstart' & 'scrollstop'
+            // isScrollTypeEvent cantains custom scrollEvent . Such as 'scrollstart' & 'scrollstop'
+            // https://github.com/search?utf8=%E2%9C%93&q=scrollstart
             isScrollTypeEvent = isScrollEvent || options.event == 'scrollstart' || options.event == 'scrollstop'
 
             $elements.each(function(i,e){
@@ -240,13 +264,13 @@
                     if(!$element._lazyload_loadStarted){
                         effectIsNotImmediacyShow = (options.effect != 'show' && $.fn[options.effect] && (!options.effect_params || (effectParamsIsArray && options.effect_params.length == 0)))
                         if(options.appear != emptyFn){
-                            options.appear.call(element, $elements.length, options)
+                            options.appear.call(element, $element, $elements.length, options)
                         }
                         $element._lazyload_loadStarted = true
                         if(options.no_fake_img_loader || originalSrcset){
                             if(options.load != emptyFn){
                                 $element.one('load',function(){
-                                    options.load.call(element, $elements.length, options)
+                                    options.load.call(element, $element, $elements.length, options)
                                 })
                             }
                             loadFunc()
@@ -274,41 +298,20 @@
 
             // Fire one scroll event per scroll. Not one scroll event per image. 
             if(isScrollTypeEvent){
-                hasMinimumInterval = options.minimum_interval != 0
                 options._$container.on(options.event, function(){
-                    // desktop and Android device triggered many times `scroll` event in once user scrolling
-                    if(isScrollEvent && hasMinimumInterval && (!isIOS || options.use_minimum_interval_in_ios)){
-                        if(!scrollTimer){
-                            scrollTimer = setTimeout(function(){
-                                checkAppear($elements, options)
-                                scrollTimer = null
-                            },options.minimum_interval) // only check once in 300ms
-                        }
-                    }else{
-                        return checkAppear($elements, options)
-                    }
+                    throttleCheckAppear($elements, options)
                 })
             }
 
             // Check if something appears when window is resized. 
-            // Force initial check if images should appear when window onload. 
+            // Force initial check if images should appear when window is onload. 
             $window.on('resize load', function(){
-                checkAppear($elements, options)
+                throttleCheckAppear($elements, options)
             })
-                  
-            // With IOS5 force loading images when navigating with back button. 
-            // Non optimal workaround. 
-            if(isIOS5){
-                $window.on('pageshow', function(e){
-                    if(e.originalEvent && e.originalEvent.persisted){
-                        $elements.trigger('_lazyload_appear')
-                    }
-                })
-            }
 
             // Force initial check if images should appear. 
             $(function(){
-                checkAppear($elements, options)
+                throttleCheckAppear($elements, options)
             })
             
             return this

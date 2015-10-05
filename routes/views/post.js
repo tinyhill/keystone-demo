@@ -23,14 +23,14 @@ exports = module.exports = function (req, res) {
 
             var postType = post.type;
 
-            post.content = post.content.replace(/<img(.+)src=/i, '<img$1data-src=');
+            post.content = post.content.replace(/<img(.+)src=/ig, '<img$1data-src=');
 
             locals.back = '/category/' + post.categories[0];
             locals.title = post.title;
-            locals.isArticle = postType == 'article';
-            locals.isProduct = postType == 'product';
-            locals.isRegistration = postType == 'registration';
-            locals.isPublished = post.state == 'published';
+            locals.isArticle = postType === 'article';
+            locals.isProduct = postType === 'product';
+            locals.isRegistration = postType === 'registration';
+            locals.isPublished = post.state === 'published';
             locals.post = post;
 
             var registrationModel = keystone.list('Registration').model;
@@ -38,19 +38,19 @@ exports = module.exports = function (req, res) {
                 post: postId
             }).limit(6).populate('author');
 
-            registrationQuery.exec(function (err, registration) {
+            registrationQuery.exec(function (err, registrations) {
 
-                locals.registration = registration;
+                locals.registrations = registrations;
 
                 var countQuery = registrationModel.count(function (err, count) {
 
-                    locals.registration.count = count;
+                    locals.registrations.count = count;
 
                     countQuery.count({
                         selected: true
                     }, function (err, count) {
 
-                        locals.registration.selectedCount = count;
+                        locals.registrations.selectedCount = count;
                         next(err);
                     });
                 });

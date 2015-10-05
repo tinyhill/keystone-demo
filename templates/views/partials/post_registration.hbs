@@ -16,13 +16,13 @@
         {{/if}}
     </div>
     <div class="registration-info">
-        <div class="heading">报名{{registration.count}}人，已入选{{registration.selectedCount}}人</div>
-        {{#if registration}}
+        <div class="heading">报名{{registrations.count}}人，已入选{{registrations.selectedCount}}人</div>
+        {{#if registrations}}
             <div class="users">
                 <a class="clearfix" href="/registration/users/{{post.slug}}">
-                    {{#registration}}
+                    {{#registrations}}
                         <img data-src="http://tp3.sinaimg.cn/1639111910/180/5719548796/1" alt="{{author._id}}">
-                    {{/registration}}
+                    {{/registrations}}
                     <span class="iconfont icon-go"></span>
                 </a>
             </div>

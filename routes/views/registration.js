@@ -6,7 +6,7 @@ exports.new = function (req, res) {
     var locals = res.locals;
 
     // Set locals
-    locals.section = 'registration/new';
+    locals.section = 'registration_new';
     locals.filters = {
         post: req.params.post
     };
@@ -15,29 +15,32 @@ exports.new = function (req, res) {
     // Load the current post
     view.on('init', function (next) {
 
-        var postQ = keystone.list('Post').model.findOne({
-            _id: locals.filters.post
+        var postId = locals.filters.post;
+        var postQuery = keystone.list('Post').model.findOne({
+            _id: postId
         }).populate('author');
 
-        postQ.exec(function (err, result) {
+        postQuery.exec(function (err, post) {
 
-            locals.title = result.title;
-            locals.post = result;
+            locals.back = '/post/' + postId;
+            locals.title = post.title;
+            locals.post = post;
 
             if (locals.isSubmit) {
 
-                var Registration = keystone.list('Registration');
-                var registrationQ = Registration.model.findOne({
-                    author: locals.user._id
+                var userId = locals.user._id;
+                var registrationList = keystone.list('Registration');
+                var registrationQuery = Registration.model.findOne({
+                    author: userId
                 });
 
-                registrationQ.exec(function (err, result) {
+                registrationQuery.exec(function (err, registration) {
 
-                    if (!result) {
+                    if (!registration) {
 
-                        var obj = new Registration.model(req.body);
+                        var obj = new registrationList.model(req.body);
 
-                        obj.author = locals.user._id;
+                        obj.author = userId;
                         obj.save();
                     } else {
                         locals.isSubmited = true;
@@ -52,43 +55,52 @@ exports.new = function (req, res) {
     });
 
     // Render the view
-    view.render('registration');
+    view.render('registration_new');
 
 };
 
-exports.info = function (req, res) {
+exports.users = function (req, res) {
 
     var view = new keystone.View(req, res);
     var locals = res.locals;
 
     // Set locals
-    locals.section = 'registration/info';
+    locals.section = 'registration_users';
     locals.filters = {
-        post: req.params.post
+        post: req.params.post,
+        page: req.query.page,
+        selected: req.query.selected
     };
 
-    // Load the current registration
+    // Load the current post
     view.on('init', function (next) {
 
-        var Registration = keystone.list('Registration');
-        var registrationQ = Registration.model.findOne({
-            post: locals.filters.post
-        }).populate('author');
+        var postId = locals.filters.post;
 
-        registrationQ.exec(function (err, result) {
-console.log(result);
+        locals.back = '/post/' + postId;
+        locals.title = '报名统计';
+        locals.isAjax = typeof locals.filters.page !== 'undefined';
+        locals.isSelected = typeof locals.filters.selected !== 'undefined';
 
-            locals.layout = 'ajax';
-            locals.registrations = result;
+        var registrationList = keystone.list('Registration');
+        var registrationQuery = registrationList.paginate({
+            page: locals.filters.page || 1,
+            perPage: 5
+        }).where('post', postId);
+
+        if (locals.isSelected) {
+            registrationQuery.where('selected', true);
+        }
+
+        registrationQuery.exec(function (err, registrations) {
+            if (locals.isAjax) {
+                locals.layout = 'ajax';
+            }
+            locals.registrations = registrations.results;
             next(err);
         });
     });
 
     // Render the view
-    view.render('registration_info');
-};
-
-exports.users = function (req, res) {
-
-    // todo
+    view.render('registration_users');
 };
