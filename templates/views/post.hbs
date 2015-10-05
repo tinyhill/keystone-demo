@@ -1,14 +1,14 @@
 {{#if isArticle}}
-    {{> post_header }}
+    {{> post/header }}
 {{else}}
-    {{> post_carousel }}
+    {{> post/carousel }}
     {{#isProduct}}
-        {{> post_product }}
+        {{> post/product }}
     {{/isProduct}}
     {{#isRegistration}}
-        {{> post_registration }}
+        {{> post/registration }}
     {{/isRegistration}}
-    {{> post_utility }}
+    {{> post/utility }}
 {{/if}}
-{{> post_content }}
-{{> post_tab }}
+{{> post/content }}
+{{> post/tab }}

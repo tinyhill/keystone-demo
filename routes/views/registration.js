@@ -30,7 +30,7 @@ exports.new = function (req, res) {
 
                 var userId = locals.user._id;
                 var registrationList = keystone.list('Registration');
-                var registrationQuery = Registration.model.findOne({
+                var registrationQuery = registrationList.model.findOne({
                     author: userId
                 });
 
