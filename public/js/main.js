@@ -69,3 +69,15 @@
         '</ul>');
 
 })(Zepto, '#carousel');
+
+/**
+ * 图片懒加载
+ */
+(function ($) {
+
+    $('img[data-src]').lazyload({
+        threshold: 100,
+        data_attribute: 'src'
+    });
+
+})(Zepto);

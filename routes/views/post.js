@@ -14,21 +14,47 @@ exports = module.exports = function (req, res) {
     // Load the current post
     view.on('init', function (next) {
 
-        var q = keystone.list('Post').model.findOne({
-            _id: locals.filters.post
+        var postId = locals.filters.post;
+        var postQuery = keystone.list('Post').model.findOne({
+            _id: postId
         });
 
-        q.exec(function (err, result) {
+        postQuery.exec(function (err, post) {
 
-            var type = result.type;
+            var postType = post.type;
 
-            locals.title = result.title;
-            locals.isArticle = type == 'article';
-            locals.isProduct = type == 'product';
-            locals.isRegistration = type == 'registration';
-            locals.isPublished = result.state == 'published';
-            locals.post = result;
-            next(err);
+            post.content = post.content.replace(/<img(.+)src=/i, '<img$1data-src=');
+
+            locals.back = '/category/' + post.categories[0];
+            locals.title = post.title;
+            locals.isArticle = postType == 'article';
+            locals.isProduct = postType == 'product';
+            locals.isRegistration = postType == 'registration';
+            locals.isPublished = post.state == 'published';
+            locals.post = post;
+
+            var registrationModel = keystone.list('Registration').model;
+            var registrationQuery = registrationModel.find({
+                post: postId
+            }).limit(6).populate('author');
+
+            registrationQuery.exec(function (err, registration) {
+
+                locals.registration = registration;
+
+                var countQuery = registrationModel.count(function (err, count) {
+
+                    locals.registration.count = count;
+
+                    countQuery.count({
+                        selected: true
+                    }, function (err, count) {
+
+                        locals.registration.selectedCount = count;
+                        next(err);
+                    });
+                });
+            });
         });
     });
 
