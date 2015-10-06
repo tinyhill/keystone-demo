@@ -40,6 +40,7 @@ exports = module.exports = function (app) {
     app.get('/post/:post', routes.views.post);
     app.all('/registration/new/:post', middleware.requireUser, routes.views.registration.new);
     app.get('/registration/users/:post', routes.views.registration.users);
+    app.get('/user', routes.views.user);
 
     // NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
     // app.get('/protected', middleware.requireUser, routes.views.protected);

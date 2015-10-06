@@ -1,3 +1,5 @@
 <div id="header">
-    {{> navbar }}
+    {{^ifeq section 'user'}}
+        {{> navbar }}
+    {{/ifeq}}
 </div>

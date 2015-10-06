@@ -1,14 +1,15 @@
 <div class="navbar" id="navbar">
     <div class="navbar-header">
         {{#ifeq section 'home'}}
-            <a class="navbar-brand" href="/">有个地</a>
+            <a class="navbar-brand" href="/">慈溪</a>
         {{/ifeq}}
         {{^ifeq section 'home'}}
-            <a class="navbar-back" href="{{back}}">
+            <a class="navbar-back clearfix" href="{{back}}">
                 <span class="iconfont icon-back"></span>
+                <span class="text">返回</span>
             </a>
-            <div class="navbar-title">{{title}}</div>
         {{/ifeq}}
+        <div class="navbar-title">{{title}}</div>
         <div class="navbar-toggle" id="navbar-toggle">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>

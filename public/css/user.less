@@ -1,0 +1,99 @@
+.user {
+  padding-bottom: 91/@rem;
+
+  .profile {
+    background-color: @primary;
+    padding: 1rem 0;
+    text-align: center;
+  }
+
+  .avatar {
+    width: 140/@rem;
+    height: 140/@rem;
+    margin: 0 auto 12/@rem;
+    position: relative;
+
+    img {
+      border-radius: 50%;
+      width: 128/@rem;
+      height: 128/@rem;
+      position: absolute;
+      top: 6/@rem;
+      left: 6/@rem;
+      z-index: 1;
+    }
+
+    s {
+      background-color: white;
+      border: 6/@rem solid #e0e0e0;
+      border-radius: 50%;
+      display: block;
+      width: 128/@rem;
+      height: 128/@rem;
+      opacity: 0.6;
+    }
+  }
+
+  .nickname {
+    color: white;
+    font-size: 30/@rem;
+    font-weight: bold;
+    margin-bottom: 14/@rem;
+  }
+
+  .action {
+    border: 1px solid white;
+    border-radius: 24/@rem;
+    color: white;
+    font-size: 24/@rem;
+    display: inline-block;
+    margin: 0 auto;
+    padding: 6/@rem 24/@rem;
+    text-decoration: none;
+    opacity: 0.9;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  .menu-group {
+    background-color: white;
+    border-top: 1px solid #e0e0e0;
+    margin-bottom: 20/@rem;
+
+    .item {
+      border-bottom: 1px solid #e0e0e0;
+      font-size: 28/@rem;
+      line-height: 72/@rem;
+      padding: 0 20/@rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      a {
+        display: block;
+        text-decoration: none;
+      }
+    }
+
+    .icon-flag {
+      color: #999;
+      float: left;
+      margin-right: 14/@rem;
+    }
+
+    .text {
+      color: #666;
+    }
+
+    .icon-go {
+      color: #ccc;
+      opacity: .8;
+      display: inline-block;
+      font-size: 22/@rem;
+      line-height: 72/@rem;
+      float: right;
+    }
+  }
+}

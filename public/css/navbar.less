@@ -6,8 +6,7 @@
 
 .navbar-brand {
   line-height: 86/@rem;
-  font-size: 32/@rem;
-  font-weight: bold;
+  font-size: 24/@rem;
   color: white;
   text-decoration: none;
   padding: 0 30/@rem;
@@ -17,17 +16,25 @@
 }
 
 .navbar-back {
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.9);
   text-decoration: none;
-  padding: 0 24/@rem;
+  padding: 0 20/@rem;
   position: absolute;
   left: 0;
   top: 0;
 
-  .icon-back {
-    display: inline-block;
+  .icon-back,
+  .text {
     line-height: 86/@rem;
+    float: left;
+  }
+
+  .icon-back {
     font-size: 32/@rem;
+  }
+
+  .text {
+    font-size: 30/@rem;
   }
 
   &:hover {
@@ -41,9 +48,9 @@
   line-height: 86/@rem;
   text-align: center;
   position: absolute;
-  left: 80/@rem;
+  left: 132/@rem;
   top: 0;
-  right: 96/@rem;
+  right: 132/@rem;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -53,12 +60,12 @@
   position: absolute;
   right: 0;
   top: 0;
-  padding: 28/@rem;
+  padding: 28/@rem 26/@rem;
   -webkit-user-select: none;
   user-select: none;
 
   .icon-bar {
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.9);
     display: block;
     width: 40/@rem;
     height: 6/@rem;
@@ -81,7 +88,7 @@
   background-color: white;
 
   .icon-bar {
-    background-color: rgba(49, 189, 128, 0.8) !important;
+    background-color: rgba(49, 189, 128, 0.9) !important;
   }
 }
 
@@ -107,7 +114,7 @@
   a {
     color: #333;
     display: block;
-    font-size: 32/@rem;
+    font-size: 30/@rem;
     line-height: 104/@rem;
     padding-left: 30/@rem;
     margin-right: 96/@rem;
