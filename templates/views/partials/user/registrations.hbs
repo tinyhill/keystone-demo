@@ -1,0 +1,12 @@
+<div class="user-registration">
+    <div class="heading heading2 clearfix">
+        <a href="/user/registrations" class="item{{^isSelected}} selected{{/isSelected}}">已报名</a>
+        <a href="/user/registrations?selected=true" class="item{{#isSelected}} selected{{/isSelected}}">已入选</a>
+    </div>
+    <ul class="registrations" id="registrations">
+        {{> user/registrations_item }}
+    </ul>
+    <div class="more" id="more" data-context="#registrations">
+        <button type="button" class="button button-disabled">加载更多</button>
+    </div>
+</div>

@@ -40,9 +40,9 @@ exports = module.exports = function (app) {
     app.get('/post/:post', routes.views.post);
     app.all('/registration/new/:post', middleware.requireUser, routes.views.registration.new);
     app.get('/registration/users/:post', routes.views.registration.users);
-    app.get('/user', routes.views.user.home);
-    //app.get('/user/edit', routes.views.user.edit);
-    app.get('/user/registrations', routes.views.user.registrations);
+    app.get('/user', routes.views.user.index);
+    app.all('/user/profile', routes.views.user.profile);
+    app.get('/user/registrations', middleware.requireUser, routes.views.user.registrations);
     //app.get('/user/orders', routes.views.user.orders);
     //app.get('/user/favorites', routes.views.user.favorites);
     //app.get('/user/settings', routes.views.user.settings);

@@ -1,1 +1,6 @@
-123
+{{#if isAjax}}
+    {{> user/registrations_item }}
+{{else}}
+    {{> navbar }}
+    {{> user/registrations }}
+{{/if}}
