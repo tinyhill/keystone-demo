@@ -40,7 +40,12 @@ exports = module.exports = function (app) {
     app.get('/post/:post', routes.views.post);
     app.all('/registration/new/:post', middleware.requireUser, routes.views.registration.new);
     app.get('/registration/users/:post', routes.views.registration.users);
-    app.get('/user', routes.views.user);
+    app.get('/user', routes.views.user.home);
+    //app.get('/user/edit', routes.views.user.edit);
+    app.get('/user/registrations', routes.views.user.registrations);
+    //app.get('/user/orders', routes.views.user.orders);
+    //app.get('/user/favorites', routes.views.user.favorites);
+    //app.get('/user/settings', routes.views.user.settings);
 
     // NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
     // app.get('/protected', middleware.requireUser, routes.views.protected);
