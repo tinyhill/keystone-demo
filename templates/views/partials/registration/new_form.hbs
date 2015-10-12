@@ -5,7 +5,7 @@
         <fieldset class="group">
             <label>报名信息</label>
             <input type="text" name="mobile" id="mobile" class="input-1" placeholder="请输入手机号码">
-            <input type="text" name="realName" id="realName" class="input-1" placeholder="请输入真实姓名" maxlength="10">
+            <input type="text" name="realname" id="realname" class="input-1" placeholder="请输入真实姓名" maxlength="10">
         </fieldset>
         <fieldset class="group">
             <label>留言</label>
@@ -26,9 +26,9 @@
                             return /^\s*1\d{10}\s*$/.test(val);
                         }
                     },
-                    '#realName': {
+                    '#realname': {
                         required: true,
-                        message: '真实姓名长度不能超过 10 个字符',
+                        message: '真实姓名格式不正确',
                         test: function (val) {
                             return val.length <= 10;
                         }

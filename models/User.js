@@ -13,7 +13,17 @@ var User = new keystone.List('User', {
 User.add({
 	name: { type: Types.Name, required: true, index: true },
 	email: { type: Types.Email, initial: true, required: true, index: true },
-	password: { type: Types.Password, initial: true, required: true }
+	password: { type: Types.Password, initial: true, required: true },
+	nickname: { type: String },
+	sex: { type: Types.Select, options: [1, 2, 0], default: 0 },
+	city: { type: String },
+	headimgurl: { type: Types.CloudinaryImage },
+	mobile: { type: String },
+	realname: { type: String },
+	qqOpenid: { type: String },
+	wechatOpenid: { type: String },
+	wechatUnionid: { type: String },
+	weiboOpenid: { type: String }
 }, 'Permissions', {
 	isAdmin: { type: Boolean, label: 'Can access Keystone', index: true }
 });
@@ -29,11 +39,5 @@ User.schema.virtual('canAccessKeystone').get(function() {
  */
 
 User.relationship({ ref: 'Post', path: 'posts', refPath: 'author' });
-
-
-/**
- * Registration
- */
-
-User.defaultColumns = 'name, email, isAdmin';
+User.defaultColumns = 'name, mobile, isAdmin';
 User.register();

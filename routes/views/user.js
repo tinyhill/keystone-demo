@@ -24,9 +24,36 @@ exports.profile = function (req, res) {
     // Set locals
     locals.section = 'user_profile';
     locals.filters = {};
+    locals.isSubmit = req.method == 'POST';
 
-    locals.back = '/user';
-    locals.title = '编辑资料';
+    // Load the current post
+    view.on('init', function (next) {
+
+        locals.back = '/user';
+        locals.title = '编辑资料';
+
+        if (locals.isSubmit) {
+
+            var userId = locals.user._id;
+            var userModel = keystone.list('User').model;
+
+            userModel.update({
+                _id: userId
+            }, req.body, function (err, numAffected) {
+
+                var userQuery = userModel.findOne({
+                    _id: userId
+                });
+
+                userQuery.exec(function (err, user) {
+                    locals.user = user;
+                    next(err);
+                });
+            });
+        } else {
+            next();
+        }
+    });
 
     // Render the view
     view.render('user_profile');
