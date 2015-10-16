@@ -7,8 +7,6 @@ exports.index = function (req, res) {
 
     // Set locals
     locals.section = 'user';
-    locals.filters = {};
-
     locals.title = '我';
 
     // Render the view
@@ -23,7 +21,6 @@ exports.profile = function (req, res) {
 
     // Set locals
     locals.section = 'user_profile';
-    locals.filters = {};
     locals.isSubmit = req.method == 'POST';
 
     // Load the current post
