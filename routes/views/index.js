@@ -15,7 +15,7 @@ exports = module.exports = function (req, res) {
         posts: [],
         categories: []
     };
-    locals.title = '有个地';
+    locals.title = 'Keystone Demo';
 
     // Load all categories
     view.on('init', function (next) {
