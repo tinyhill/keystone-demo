@@ -1,16 +1,20 @@
 {
   "name": "yougedi",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "keystone": "^0.3.11",
     "async": "^0.9.0",
-    "underscore": "^1.8.0",
-    "moment": "^2.8.1",
     "cloudinary": "^1.0.12",
+    "dotenv": "^1.1.0",
     "express-handlebars": "^2.0.1",
     "handlebars": "^2.0.0",
-    "dotenv": "^1.1.0"
+    "keystone": "^0.3.11",
+    "moment": "^2.8.1",
+    "passport": "^0.2.2",
+    "passport-qq": "0.0.3",
+    "passport-wechat": "^2.0.0",
+    "passport-weibo": "^0.1.2",
+    "underscore": "^1.8.0"
   },
   "devDependencies": {
     "gulp": "^3.7.0",

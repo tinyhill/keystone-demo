@@ -7,7 +7,7 @@ exports = module.exports = function (req, res) {
     var locals = res.locals;
 
     // Init locals
-    locals.section = 'home';
+    locals.section = 'index';
     locals.filters = {
         category: req.params.category
     };
@@ -82,6 +82,6 @@ exports = module.exports = function (req, res) {
     });
 
     // Render the view
-    view.render('home');
+    view.render('index');
 
 };
